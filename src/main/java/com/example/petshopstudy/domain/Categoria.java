@@ -1,13 +1,18 @@
 package com.example.petshopstudy.domain;
 
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class Categoria implements Serializable{
 
     @Serial
     private static final long serialVersionUID = -2508754052693562889L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
 
