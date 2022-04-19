@@ -1,6 +1,11 @@
 package com.example.petshopstudy.resources;
 
 import com.example.petshopstudy.domain.Categoria;
+import com.example.petshopstudy.repositories.CategoriaRepository;
+import com.example.petshopstudy.service.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,17 +17,12 @@ import java.util.List;
 @RequestMapping(value= "/categorias")
 public class CategoriaResource {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> mostrar() {
-        Categoria cat1 = new Categoria(1, "Alimento");
-        Categoria cat2 = new Categoria(2, "Cosmético");
-        Categoria cat3 = new Categoria(3, "Remédio");
+    @Autowired
+    CategoriaService service;
 
-        List<Categoria> listCategorias = new ArrayList<>();
-        listCategorias.add(cat1);
-        listCategorias.add(cat2);
-        listCategorias.add(cat3);
-
-        return listCategorias;
+    @RequestMapping(value = "/{id}" ,method = RequestMethod.GET)
+    public ResponseEntity<?> find(@PathVariable Integer id) {
+        Categoria obj = service.find(id);
+        return ResponseEntity.ok().body(obj);
     }
 }
