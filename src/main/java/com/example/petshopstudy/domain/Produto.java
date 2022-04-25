@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Categoria implements Serializable{
+public class Produto implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -2508754052693562889L;
@@ -17,25 +17,38 @@ public class Categoria implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    private Double preço;
 
-    @ManyToMany(mappedBy = "categorias")
-    private List<Produto> produtos = new ArrayList<>();
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
 
-    public Categoria() {
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "PRODUTO_CATEGORIA",
+            joinColumns =  @JoinColumn(name = "id_produto"),
+            inverseJoinColumns =  @JoinColumn(name = "id_categoria"))
+    private List<Categoria> categorias = new ArrayList<>();
+
+    public Produto() {
 
     }
-    public Categoria(Integer id, String nome) {
-        super();
+
+    public Produto(Integer id, String nome, Double preço) {
         this.id = id;
         this.nome = nome;
+        this.preço = preço;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return id.equals(categoria.id);
+        if (!(o instanceof Produto)) return false;
+        Produto produto = (Produto) o;
+        return id.equals(produto.id);
     }
 
     @Override
@@ -59,11 +72,11 @@ public class Categoria implements Serializable{
         this.nome = nome;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public Double getPreço() {
+        return preço;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setPreço(Double preço) {
+        this.preço = preço;
     }
 }
