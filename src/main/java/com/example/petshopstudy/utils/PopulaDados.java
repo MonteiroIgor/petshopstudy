@@ -33,7 +33,7 @@ public class PopulaDados {
 
         cat1.getProdutos().addAll(Arrays.asList(p1, p2));
         cat2.getProdutos().addAll(Arrays.asList(p3, p4));
-        cat3.getProdutos().addAll(Arrays.asList(p4));
+        cat3.getProdutos().addAll(Arrays.asList(p3));
 
         p1.getCategorias().addAll(Arrays.asList(cat1));
         p2.getCategorias().addAll(Arrays.asList(cat1));
